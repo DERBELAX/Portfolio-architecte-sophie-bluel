@@ -28,7 +28,7 @@ window.onload = () => {
 
     });
 }
-//*******GALLERY*******
+//GALLERY
 
 function getworks(data) {
   gallery = document.querySelector(".gallery");
