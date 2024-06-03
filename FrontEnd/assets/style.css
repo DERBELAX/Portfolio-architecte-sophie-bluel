@@ -206,4 +206,240 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
+.filter{
+	display: flex;
+	justify-content: center;
+	margin-bottom: 50px;
+	gap: 10px;
+}
+.filterButton, .filterButtonAll, #browsePictures {
+	box-sizing: border-box;
+	width: auto;
+	padding: 10px 20px;
+	border: #1D6154 1px solid;
+	background: none;
+	color: #1D6154;
+	border-radius: 60px;
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 16px;
+	text-align: center;
+	margin: 0;
+}
+.filterButton:hover, .filterButton:focus, .filterButtonAll:hover, .filterButtonAll:focus {
+	background-color: #1D6154;
+	color: #FFFFFF;
+}
+#header-black,
+.text-edit{
+	padding: 10px 5px 0 0;
+}
+.mode{
+	margin: 0px;
+	height: 59px;
+	width: 100%;
+	background-color: black;
+	color: white;
+}
+.modal{
+	position:fixed;
+	top: 0;
+	left: 0;
+	width:100%;
+	height: 100%;
+	background:rgba(0, 0, 0, 0.3);
+	display: flex;
+	align-items: center;
+	justify-content: center; 
+}
+.modal-wrapper{	
+	overflow: auto;
+	background-color: white;
+	width: 59%;
+	padding: 24px; 
+	border-radius: 10px;
+	max-height: 500px;
+}
+.style-close-modal{
+	display: flex;
+	justify-content: flex-end;
+}
+.style-container-modal{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 25px;
+}
+.style-title-modal{
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 26px;	
+}
+.style-galeri-modal{
+	width: 80%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
+	grid-column-gap: 10px;
+	grid-row-gap: 20px;
+	padding-bottom: 60px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #B3B3B3;
+}
+.style-galeri-modal img {
+	width: 100%;
+}
+.btn-add-photo-modal{
+	background-color: #1D6154;
+	color: white;
+	width: 237px;
+	height: 36px;
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	font-family: 'Syne';
+	font-size: 16px;
+	text-align: center;
+	padding: 6px 15px 6px 15px;
+	cursor: pointer;
+}
+.style-btn-delete-gallery{
+	color: red;
+	margin-bottom: 50px ;
+	cursor: pointer;
+}
 
+/*======= css icone sur photo de modal =======*/
+.style-galeri-modal article{
+	position: relative;
+ }
+.index{
+	z-index: auto;
+}
+.style-icone-photo-modal{
+	display: flex;
+	flex-wrap: nowrap;
+	gap: 2px;
+	position: absolute;
+	width: auto;
+	right: 4px;
+	top: 4px;
+}
+.style-icone-photo{
+	font-size: 100%;
+	background-color: black;
+	color: white;
+	padding: 4px;
+}
+.style-btn-cursor {
+	cursor: pointer;
+}
+/*======css modal vue: 2 ajoute photo ========*/
+.close-add-modal{
+	display: flex;
+	justify-content:space-between;
+}
+#icone-return{
+	cursor: pointer;	
+}
+.add-photo-modal{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+}
+.add-photo{
+	width: 70%;
+	height: 170px;
+	background: #E8F1F7;
+	border-radius: 3px;
+}
+.container-photo{
+	display: flex;
+	flex-direction: column;
+	align-items:center;
+	padding-top: 20px;	
+}
+.add-photo img{
+	width: 100%;
+	height: 170px;	
+	padding-left: 33%;
+}
+.photo{
+	width: 60%;
+	height: 170px;
+}
+.btn-file{
+	border: 1px solid #CBD6DC;
+	border-radius: 50px;
+	font-family: 'Syne';
+	font-size: 16px;
+	text-align: center;
+	color : #306685;
+	background-color: #CBD6DC;
+	width: 173px;
+	height: 36px;
+	cursor: pointer;	
+}
+.div-input-file{
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+}
+.div-input-file #file{
+	left: 0;
+  	top: 0;
+  	opacity: 0;
+  	position: absolute;
+  	font-size: 90px;
+}
+.text-add-phot{
+	font-weight: 400;
+	font-size: 10px;
+	line-height: 12px;
+	color: #444444;
+}
+.form-add-photo{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+#form-add-photo{
+	border-bottom: 1px solid #B3B3B3;
+	padding-bottom: 20px;
+	margin-bottom: 10px;
+}
+.style-input-add-photo{
+	height: 40px;
+    font-size: 1.2em;
+    border: none;
+	background-color: white;
+    box-shadow: 0px 4px 14px rgb(0 0 0 / 9%);
+    margin:5px 0 15px 0;
+}
+.icone-add-photo{
+	color: rgb(157, 198, 245);
+	font-size: 90px;
+}
+.btn-valid{
+	border: 1px solid #A7A7A7;
+	border-radius: 50px;
+	font-family: 'Syne';
+	font-size: 16px;
+	text-align: center;
+	background-color:#A7A7A7;
+	color :	white;
+	width: 173px;
+	height: 36px;
+	cursor: pointer;	
+}
+#form-add-photo{
+	width: 70%;
+	text-align: left;
+	margin-top:30px;
+	display: flex;
+	flex-direction: column;
+}
+#form-add-photo input select{
+	padding: 20px 0 20px 0;
+}
