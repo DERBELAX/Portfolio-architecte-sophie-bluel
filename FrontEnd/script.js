@@ -1,5 +1,3 @@
-//import{Form} from "./login.js";
-const token = sessionStorage.getItem("accessToken");
 //Data 
 const baseInfo = "http://localhost:5678/api/";
 let worksData;
@@ -18,7 +16,7 @@ window.onload = () => {
     .then((data) => {
       worksData = data;
       //get list of categories
-      listOfUniqueCategories();
+      listCategories();
       //display all works
       getworks(worksData);
       //Filter functionnality
@@ -51,14 +49,14 @@ function getworks(data) {
   });
 }
 //get list of categories in array as unique objects
-function listOfUniqueCategories() {
-  let listOfCategories = new Set();
+function listCategories() {
+  let listCategories = new Set();
   //get set of string categories
   worksData.forEach((work) => {
-    listOfCategories.add(JSON.stringify(work.category));
+    listCategories.add(JSON.stringify(work.category));
   });
   //push stringified categories in array
-  const arrayOfStrings = [...listOfCategories];
+  const arrayOfStrings = [...listCategories];
   //parse array to get objects back
   categories = arrayOfStrings.map((s) => JSON.parse(s));
 }
@@ -114,10 +112,8 @@ function toggleProjects(datasetCategory) {
 
 //MODAL
 
-const openModal = function (e) {
-  e.preventDefault()
-  modal = document.querySelector(e.target.getAttribute('href'))
-  modal.style.display = null
+const openModal = function (modal) {
+  modal.preventDefault()
   modal.removeAttribute('aria-hidden')
   modal.setAttribute('aria-modal', 'true')
   modal.addEventListener('click', closModal)
@@ -126,9 +122,9 @@ const openModal = function (e) {
   functionModalVue2()
 }
 
-const closModal = function (e) {
+const closModal = function (modal) {
   if (modal === null) return
-  e.preventDefault()
+  modal.preventDefault()
   modal.style.display = "none"
   modal.removeAttribute('aria-hidden', 'true')
   modal.removeEventListener('click', closModal)
@@ -136,17 +132,17 @@ const closModal = function (e) {
   modal.querySelector('js-modal-stop').removeEventListener('clik', stopPropagation)
   modal = null
 }
-const stopPropagation = function (e) {
-  e.stopPropagation()
+const stopPropagation = function (modal) {
+  modal.stopPropagation()
 }
 
 document.querySelectorAll('.js-modal').forEach(a => {
   a.addEventListener('click', openModal)
 })
 
-window.addEventListener('keydown', function (e){
-  if (e.key === "Escape" || e.key === "Esc") {
-    closModal(e)
+window.addEventListener('keydown', function (modal){
+  if (modal.key === "Escape" || modal.key === "Esc") {
+    closModal(modal)
   }
   })
 
