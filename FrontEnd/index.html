@@ -11,16 +11,44 @@
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
+	<aside class="modal">
+		<div class="modalWrapper" id="editGallery">
+			<div class="modalHeader"><i class="fa-solid fa-xmark"></i></div>
+			<h3 class="modalTitle">Galerie photo</h3>
+			<div class="modalContent"></div>
+			<button id="addPictureBtn">Ajouter une photo</button>
+		</div>
+		<div class="modalWrapper" id="addPicture">
+			<div class="modalHeader"><i class="fa-solid fa-arrow-left"></i><i class="fa-solid fa-xmark"></i></div>
+			<h3 class="modalTitle">Ajout photo</h3>
+			<div class="modalContent">
+				<form id="addPictureForm" name="addPictureForm">
+					<div id="labelPhoto">
+						<img src="./assets/icons/picture.png" id="picture" alt="choisir une image">
+						<label for="photo" id="browsePictures">+ Ajouter photo</label>
+						<p>jpg, png : 4mo max</p>
+					</div>
+					<div id="picturePreview">
+						<img src="#" alt="votre image" id="picturePreviewImg">
+					</div>
+					<input type="file" class="photo" name="photo" id="photo" accept="image/png, image/jpeg" required>
+					<label for="title">Titre</label>
+					<input type="text" id="title" name="title" required>
+					<label for="selectCategory">Catégorie</label>
+					<select id="selectCategory" name="selectCategory">
+					</select>
+				</form>
+			</div>
+			<input type="submit" id="valider" value="valider">
+		</div>
+	</aside>
 <header>
-	<div id ="header-black" class="hide " >
-		<a href="#" class="text-edit"><i class="fa-solid fa-pen-to-square style-white "></i>Mode édition</a>
-</div>
     <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li><a href="index.html">Projets</a></li>
 			<li>contact</li>
-			<li><a href="login.html" class="btn-login">login</a></li>
+			<li><a href="login.html" id="logBtn">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -38,10 +66,9 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
-		<!--mode edit  boutton de modification img-->
-		<div id="button-edit-projet" class="hide">
-			<a href="#section-modal" class="js-modal" ><i class="fa-solid fa-pen-to-square"></i>modifier</a>
+		<div class="edit-project">
+			<h2>Mes Projets</h2>
+	
 		</div>
 		<div class="filter">
 		</div>
@@ -61,67 +88,6 @@
 			<input type="submit" value="Envoyer">
 		</form>
 	</section>	
-	<aside id="modal" class="js-modal" aria-hidden="true" role="dialog" style="display:none;" >
-		<div class="modal-wrapper js-modal-stop">
-			<div class="modal-vue1  js-container-modal" >
-				<!-- gérer la  fermeture de modale --> 
-					<div class="style-close-modal js-close-modal" >
-						<i class="fa-solid fa-xmark style-btn-cursor  "></i>
-					</div>
-					<!-- contenu de modale vue 1 -->
-					<div class="style-container-modal">
-						<h3 class="style-title-modal">Galerie photo</h3>
-						<div class="js-galeri-modal style-galeri-modal">
-						<!-- code en js modal.js-->
-						</div>
-						<button class="btn-add-photo-modal"> Ajouter une photo</button> 
-						<p class="style-btn-delete-gallery">Supprimer la galerie</p>
-					</div>
-				</div>
-				<!--========= contenue modale vue 2 : option ajouter photo =========-->
-				<div class="container-add-photo-modal" style="display: none;">
-					<!-- gérer la  fermeture de modale et retour-->
-					<div class="close-add-modal" >
-						<i class="fa-solid fa-arrow-left" id="icone-return" ></i>
-						<i class="fa-solid fa-xmark  js-close-modal-vue2" ></i>
-					</div>
-					<!-- contenu de modale avec option ajouter photo -->
-					<div class="add-photo-modal">
-						<h3 class="style-title-modal">Ajout photo</h3>
-						<div class="add-photo" >
-							<div class="container-photo">
-								<!-- bouton ajouter photo --> 
-								<i class="fa-solid fa-image icone-add-photo " ></i>
-								<div class="div-input-file">
-									<button class="btn-file">+ Ajouter photo</button> 
-									<input type="file" name="file" id="file" > 
-								</div>
-								<p class="text-add-phot">jpg, png : 4mo max</p>
-							</div>
-							<div class="photo">
-							</div>
-						</div>
-					</div>
-					<!-- formulaire de modale vue 2 -->
-					<form class="form-add-photo">
-						<div id="form-add-photo">
-							<label for="title">Titre</label>
-							<input type="text" name="title" id="title" class="style-input-add-photo" >
-							<label for="category">Catégorie</label>
-							<select name="category" id="category" class="style-input-add-photo" >
-								<option value="champ vide">---choisir catégorie---</option>
-								<option value="hotels-restaurants">Hotels & restaurants</option>
-								<option value="objets">Objets</option>
-								<option value="appartements">Appartements</option>
-								
-							</select>
-						</div>
-						<button class="btn-valid" id="send-picture">Valider </button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</aside>
 </main>
 <footer>
 	<nav>
