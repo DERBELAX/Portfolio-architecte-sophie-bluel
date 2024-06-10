@@ -250,22 +250,6 @@ footer nav ul {
 	margin-right: 0.5em;
 }
 
-.topMenu button {
-	padding: 11px 23px;
-	background-color: #FFFFFF;
-	color: #000000;
-	font-size: 14px;
-	font-weight: 600;
-	border-radius: 60px;
-	width: auto;
-	margin: 0;
-	font-family: "Work Sans";
-}
-
-
-
-
-
 /* Modal */
 .modal {
 	display: none;
@@ -325,9 +309,7 @@ footer nav ul {
 	width: auto;
 	padding: 10px 49px;
 }
-#deleteGallery {
-	color: #D65353;
-}
+
 .miniWork figcaption {
 	font-size: 12px;
 }
