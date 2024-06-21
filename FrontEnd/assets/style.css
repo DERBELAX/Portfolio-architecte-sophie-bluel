@@ -1,8 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
+/* Reset CSS */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -46,11 +42,11 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-/** end reset css**/
+/* End Reset CSS */
 body {
 	max-width: 1140px;
 	margin:auto;
-	font-family: 'Work Sans' ;
+	font-family: 'Work Sans';
 	font-size: 14px;
 }
 .edition {
@@ -60,16 +56,15 @@ body {
 	width: 1440px;
 	margin-left: -150px;
 	background: black;
-  }
-  .edition i {
+}
+.edition i {
 	font-size: 16px;
 	color: white;
 	background: black;
-  }
-  .icon-style {
+}
+.icon-style {
 	color: white;
 }
-
 .mode-text {
 	align-items: center;
 	color: white;
@@ -77,45 +72,39 @@ body {
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 0;
 }
 section {
-	margin: 50px 0
+	margin: 50px 0;
 }
-
 h1{
 	display: flex;
 	flex-direction: column;
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: #B1663C;
 }
-
 h1 > span {
 	font-family: 'Work Sans';
 	font-size:10px;
 	letter-spacing: 0.1em;
-;
 }
-
 h2{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
-	color: #1D6154
+	color: #1D6154;
 }
 nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
 }
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
 }
-
 li:hover {
 	color: #B1663C;
 }
@@ -124,21 +113,19 @@ li:hover {
 	align-items: center;
 }
 #introduction figure {
-	flex: 1
+	flex: 1;
 }
 #introduction img {
 	display: block;
 	margin: auto;
 	width: 80%;
 }
-
 #introduction article {
-	flex: 1
+	flex: 1;
 }
 #introduction h2 {
 	margin-bottom: 1em;
 }
-
 #introduction p {
 	margin-bottom: 0.5em;
 }
@@ -153,20 +140,17 @@ li:hover {
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
 }
-
 .gallery img, .miniWork {
 	width: 100%;
 	object-fit: cover;
 	height: 92%;
 }
-
 #contact,#login {
 	width: 50%;
 	margin: auto;
 }
 #contact,#login > * {
 	text-align: center;
-
 }
 #contact h2,#login h2{
 	margin-bottom: 20px;
@@ -177,7 +161,6 @@ li:hover {
 	display: flex;
 	flex-direction: column;
 }
-
 #contact input {
 	height: 50px;
 	font-size: 1.2em;
@@ -191,7 +174,6 @@ li:hover {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-
 input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
@@ -202,11 +184,10 @@ input[type="submit"]{
 	text-align: center;
 	border-radius: 60px ;
 }
-
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	margin: 2em;
 }
 .filter{
 	display: flex;
@@ -220,7 +201,8 @@ footer nav ul {
 	padding: 10px 20px;
 	border: #1D6154 1px solid;
 	background: none;
-	color: #1D6154;
+	color: #306685;
+	background: #CBD6DC;
 	border-radius: 60px;
 	font-family: 'Syne';
 	font-weight: 700;
@@ -232,7 +214,6 @@ footer nav ul {
 	background-color: #1D6154;
 	color: #FFFFFF;
 }
-
 .topMenu {
 	background-color: #000000;
 	width: 100%;
@@ -243,7 +224,7 @@ footer nav ul {
 	align-items: baseline;
 	gap: 2em;
 	padding: 10px;
-	font-family: 'Work Sans' ;
+	font-family: 'Work Sans';
 	font-size: 16px;
 }
 .topMenu i, .editBtn i {
@@ -252,88 +233,150 @@ footer nav ul {
 
 /* Modal */
 .modal {
-	display: none;
-	align-items: center;
-	justify-content: center;
+	background: rgba(0, 0, 0, 0.3);
 	position: fixed;
 	width: 100%;
 	height: 100%;
-	top: 0;
 	left: 0;
-	background: rgba(0, 0, 0, 0.3);
 	z-index: 1;
+	display: none;
+	justify-content: center;
+	align-items: center;
 }
 .modalWrapper {
+	background: #FFFFFF;
+	border-radius: 10px;
+	padding: 30px;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	padding: 30px;
-	border-radius: 10px;
-	background-color: #FFFFFF;
-	margin: auto;
-	overflow: auto;
-	width: 630px;
-	height: 688px;
-	flex-shrink: 0;
 }
 .modalHeader {
 	display: flex;
-	flex-direction: row;
-	width: 100%;
-}
-#editGallery .modalHeader {
-	justify-content: flex-end;
-}
-.modal i {
-	display: block;
-	font-size: 1.5em;
-	border-bottom: 10px;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
 }
 .modalTitle {
 	font-size: 26px;
-	margin-bottom: 47px;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 60px;
 }
 .modalContent {
-	width: 70%;
-	border-bottom: 1px solid #B3B3B3;
-	padding-bottom: 47px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-bottom: 20px;
 }
 #editGallery .modalContent {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: repeat(4, 1fr);
 	grid-auto-rows: 1fr;
 	grid-column-gap: 8px;
 	grid-row-gap: 10px;
 }
-#addPictureBtn {
-	width: auto;
-	padding: 10px 49px;
+#editGallery .miniWork {
+	width: 100px;
+	height: 100px;
+	position: relative;
 }
-
+#editGallery .miniWork img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+#addPictureBtn {
+	padding: 10px 49px;
+	border-radius: 60px;
+	background: #1D6154;
+	width: 237px;
+	height: 36px;
+	align-self: center;
+	justify-content: end;
+	color: #FFFFFF;
+}
 .miniWork figcaption {
 	font-size: 12px;
 }
-.miniWork {
-	position: relative;
+.miniWork img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
+
 .miniWork i {
-	display: block;
-	box-sizing: border-box;
-	background-color: #000000;
-	color: #FFFFFF;
-	font-size: 0.7em;
-	padding: 4px 5px;
-	border-radius: 2px;
-	position: absolute;
-	top: 0.4em;
-	right: 0.4em;	
+    display: block;
+    background-color: #000000;
+    color: #FFFFFF;
+    font-size: 0.7em;
+    padding: 4px 5px;
+    border-radius: 2px;
+    position: absolute;
+    top: 0.4em;
+    right: 0.4em;
 }
 
+#addPictureForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+	width: 70%;
+}
 
+#labelPhoto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+	width: 420px;
+	height: 200px;
+	border-radius: 3px;
+	background: #E8F1F6;
+}
 
+#labelPhoto img {
+    width: 100px;
+    height: 100px;
+}
 
+#labelPhoto label {
+    cursor: pointer;
+    font-weight: bold;
+}
 
+#picturePreview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+	max-width: 70%;
+}
 
+#picturePreview img {
+    max-width: 100%;
+    max-height: 200px;
+}
 
+input[type="file"] {
+    display: none;
+	height: 20px;
+}
 
-
+input[type="submit"] {
+    padding: 10px 49px;
+    border-radius: 60px;
+    background: #1D6154;
+    width: 237px;
+    height: 36px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+}
+#horizontalLine {
+    width: 70%;   
+	border: 0;  
+	height: 1px;   
+	background: #B3B3B3;
+	margin-bottom: 20px;
+	}

@@ -111,27 +111,48 @@ function toggleProjects(datasetCategory) {
 //ADMIN MODE
 
 function adminUserMode() {
-  //display admin mode if token is found and has the expected length (optional chaining)
-  if (sessionStorage.getItem("token")?.length == 143) {
-    //Hide filter
-    document.querySelector(".filter").style.display = "none";
-    //change login to logout
-    document.getElementById("logBtn").innerText = "logout";
-    //display top menu bar
-    const body = document.querySelector("body");
-    const topMenu = document.createElement("div");
-    const editMode = document.createElement("p");
+  const token = sessionStorage.getItem("token");
 
-    topMenu.className = "topMenu";
-    editMode.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>Mode édition`;
-   
-    body.insertAdjacentElement("afterbegin", topMenu);
-    topMenu.appendChild(editMode);
-    //edit buttons
-    const editBtn = `<p class="editBtn"><i class="fa-regular fa-pen-to-square"></i>Modifier</p>`;
-    document.querySelector("#portfolio h2").insertAdjacentHTML("afterend", editBtn);
-    //event listener modal
-    document.querySelector("#portfolio p").addEventListener("click", openModal);
+  // Check if the token is present and has the expected length
+  if (token?.length === 143) {
+    // Hide the filter element
+    const filterElement = document.querySelector(".filter");
+    if (filterElement) {
+      filterElement.style.display = "none";
+    }
+
+    // Change the login button text to "logout"
+    const logBtn = document.getElementById("logBtn");
+    if (logBtn) {
+      logBtn.innerText = "logout";
+    }
+
+    // Create and display the top menu bar
+    const body = document.querySelector("body");
+    if (body) {
+      const topMenu = document.createElement("div");
+      topMenu.className = "topMenu";
+
+      const editMode = document.createElement("p");
+      editMode.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>Mode édition`;
+      topMenu.appendChild(editMode);
+      body.insertAdjacentElement("afterbegin", topMenu);
+    }
+
+    // Add the edit button next to "Mes Projets"
+    const portfolioHeader = document.querySelector("#portfolio h2");
+    if (portfolioHeader) {
+      const editBtn = document.createElement("p");
+      editBtn.className = "editBtn";
+      editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>Modifier`;
+      portfolioHeader.insertAdjacentElement("afterend", editBtn);
+    }
+
+    // Event listener for modal
+    const portfolioParagraph = document.querySelector("#portfolio p");
+    if (portfolioParagraph) {
+      portfolioParagraph.addEventListener("click", openModal);
+    }
   }
 }
 
@@ -167,7 +188,7 @@ const closeModal = function (e) {
   }
 }
 
-//*************DELETE***************/
+//DELETE
 
 //display modal gallery function
 function modalGallery(data) {
