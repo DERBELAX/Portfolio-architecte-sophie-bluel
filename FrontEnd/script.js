@@ -1,9 +1,9 @@
-//Data 
+// Data 
 const baseInfo = "http://localhost:5678/api/";
 let worksData;
 let categories;
 
-//Elements
+// Elements
 let gallery;
 let filter;
 let modal;
@@ -16,24 +16,25 @@ window.onload = () => {
     .then((response) => response.json())
     .then((data) => {
       worksData = data;
-      //get list of categories
+      // Get list of categories
       listCategories();
-      //display all works
+      // Display all works
       getworks(worksData);
-      //Filter functionnality
+      // Filter functionality
       filter = document.querySelector(".filter");
       categoryFilter(categories, filter);
       adminUserMode(filter);
     });
 }
-//GALLERY
+
+// GALLERY
 
 function getworks(data) {
   gallery = document.querySelector(".gallery");
   gallery.innerHTML = "";
-//show all works in array
+  // Show all works in array
   data.forEach((i) => {
-//create tags
+    // Create tags
     const workCard = document.createElement("figure");
     const workImage = document.createElement("img");
     const workTitle = document.createElement("figcaption");
@@ -42,25 +43,26 @@ function getworks(data) {
     workTitle.innerText = i.title;
     workCard.dataset.category = i.category.name;
     workCard.className = "workCard";
-    //references to DOM
+    // References to DOM
     gallery.appendChild(workCard);
-    workCard.append(workImage,workTitle)
+    workCard.append(workImage, workTitle)
   });
 }
 
-//get list of categories in array as unique objects
+// Get list of categories in array as unique objects
 function listCategories() {
   let listCategories = new Set();
-  //get set of string categories
+  // Get set of string categories
   worksData.forEach((work) => {
     listCategories.add(JSON.stringify(work.category));
   });
-  //push stringified categories in array
+  // Push stringified categories in array
   const arrayOfStrings = [...listCategories];
-  //parse array to get objects back
+  // Parse array to get objects back
   categories = arrayOfStrings.map((s) => JSON.parse(s));
 }
-//filter buttons
+
+// Filter buttons
 function categoryFilter(categories, filter) {
   const button = document.createElement("button");
   button.innerText = "Tous";
@@ -70,12 +72,14 @@ function categoryFilter(categories, filter) {
   filtreButtons(categories, filter);
   functionFilter();
 }
-//create filter buttons
+
+// Create filter buttons
 function filtreButtons(categories, filter) {
   categories.forEach((categorie) => {
     createButtonFilter(categorie, filter);
   });
 }
+
 function createButtonFilter(categorie, filter) {
   const button = document.createElement("button");
   button.innerText = categorie.name;
@@ -83,17 +87,19 @@ function createButtonFilter(categorie, filter) {
   button.dataset.category = categorie.name;
   filter.appendChild(button);
 }
+
 // Gallery filter
 function functionFilter() {
   const filterButtons = document.querySelectorAll(".filterButton");
-//identify wich filter button has been clicked
+  // Identify which filter button has been clicked
   filterButtons.forEach((i) => {
     i.addEventListener("click", function () {
       toggleProjects(i.dataset.category);
     });
   });
 }
-//if button "tous" active, display all projects, else display only those with same dataset category
+
+// If button "tous" active, display all projects, else display only those with same dataset category
 function toggleProjects(datasetCategory) {
   const figures = document.querySelectorAll(".workCard");
   if ("Tous" === datasetCategory) {
@@ -108,24 +114,33 @@ function toggleProjects(datasetCategory) {
     });
   }
 }
-//ADMIN MODE
+
+// ADMIN MODE
 
 function adminUserMode() {
-  //display admin mode if token is found and has the expected length (optional chaining)
-  if (sessionStorage.getItem("token")?.length == 143) {
-    //Hide filter
+  // Display admin mode if token is found
+  if (sessionStorage.getItem("token")) {
+    // Hide filter
     document.querySelector(".filter").style.display = "none";
-    //change login to logout
-    document.getElementById("logBtn").innerText = "logout";
-    //display top menu bar
+    // Change login to logout
+    const logBtn = document.getElementById("logBtn");
+    logBtn.innerText = "logout";
+    logBtn.addEventListener("click", logout);
+
+    // Display top menu bar
     const body = document.querySelector("body");
     const topMenu = document.createElement("div");
     const editMode = document.createElement("p");
+   
+    
     topMenu.className = "topMenu";
     editMode.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>Mode édition`;
-    topMenu.appendChild(editMode);
+    logBtn.addEventListener("click", logout);
+    
+    topMenu.append(editMode);
     body.insertAdjacentElement("afterbegin", topMenu);
-    //edit buttons
+
+    // Edit buttons
     const portfolioHeader = document.querySelector("#portfolio h2");
     if (portfolioHeader) {
       const editBtn = document.createElement("p");
@@ -133,26 +148,39 @@ function adminUserMode() {
       editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>Modifier</p>`;
       portfolioHeader.insertAdjacentElement("beforeend", editBtn);
     }
-    //event listener modal
+    // Event listener modal
     const portfolioParagraph = document.querySelector("#portfolio p");
     if (portfolioParagraph) {
       portfolioParagraph.addEventListener("click", openModal);
-    }
+    } 
   }
 }
 
-//MODAL
+// LOGOUT FUNCTION
 
-//open modal if token is found and has the expected length
+function logout() {
+  // Clear the token from sessionStorage
+  sessionStorage.removeItem("token");
+  
+  // Optionally, you can redirect the user to the login page
+  // window.location.href = '/login'; // Adjust the path as needed
+  
+  // Reload the page to update the UI
+  window.location.reload();
+}
+
+// MODAL
+
+// Open modal if token is found
 const openModal = function () {
-  if (sessionStorage.getItem("token")?.length == 143) {
+  if (sessionStorage.getItem("token")) {
     modal = document.querySelector(".modal");
     modal.style.display = "flex";
     document.querySelector("#addPicture").style.display = "none";
     document.querySelector("#editGallery").style.display = "flex";
     modalGallery(worksData);
     modalStep = 0;
-    // close modal listener
+    // Close modal listener
     modal.addEventListener("click", closeModal);
     // DELETE button listener
     document.addEventListener("click", deleteBtn);
@@ -160,7 +188,7 @@ const openModal = function () {
   }
 };
 
-//close modal
+// Close modal
 const closeModal = function (e) {
   if (
     e.target === document.querySelector(".modal") ||
@@ -173,43 +201,43 @@ const closeModal = function (e) {
   }
 }
 
-//DELETE
+// DELETE
 
-//display modal gallery function
+// Display modal gallery function
 function modalGallery(data) {
   const modalContent = document.querySelector(".modalContent");
   modalContent.innerHTML = "";
-  //show all works in array
+  // Show all works in array
   data.forEach((i) => {
-    //create elements
+    // Create elements
     const miniWork = document.createElement("figure");
     const modalImage = document.createElement("img");
     const edit = document.createElement("figcaption");
     const trashCan = document.createElement("i");
-    //trashcan ID is work ID
+    // Trashcan ID is work ID
     trashCan.id = i.id;
     trashCan.classList.add("fa-solid", "fa-trash-can");
     modalImage.src = i.imageUrl;
     modalImage.alt = i.title;
     miniWork.className = "miniWork";
-    //references to DOM
+    // References to DOM
     modalContent.appendChild(miniWork);
     miniWork.append(modalImage, trashCan);
   });
 }
 
-//DELETE work event listener handler
+// DELETE work event listener handler
 const deleteBtn = function (e) {
   e.preventDefault();
-  //clicked button
+  // Clicked button
   if (e.target.matches(".fa-trash-can")) {
     deleteWork(e.target.id);
   }
 };
 
-//API call for DELETE route
+// API call for DELETE route
 function deleteWork(i) {
-  //authentify user and send API response
+  // Authenticate user and send API response
   let token = sessionStorage.getItem("token");
   fetch(baseInfo + "works/" + i, {
     method: "DELETE",
@@ -217,15 +245,15 @@ function deleteWork(i) {
       authorization: `Bearer ${token}`,
     },
   }).then((response) => {
-    //if response is positive, update the works gallery accordingly
+    // If response is positive, update the works gallery accordingly
     if (response.ok) {
-      alert("Projet supprimé avec succés")
-      //delete work from worksData array
+      alert("Projet supprimé avec succès")
+      // Delete work from worksData array
       worksData = worksData.filter((work) => work.id != i);
-      //display updated galleries
-      getworks(worksData);
+      // Display updated galleries
+      displayGallery(worksData);
       modalGallery(worksData);
-      //if response is negative report an error
+      // If response is negative, report an error
     } else {
       alert("Erreur : " + response.status);
       closeModal;
@@ -233,9 +261,9 @@ function deleteWork(i) {
   });
 }
 
-//ADD WORK
+// ADD WORK
 
-//display add work form
+// Display add work form
 const openNewWorkForm = function (e) {
   if(e.target === document.querySelector("#addPictureBtn")){
     modalStep = 1;
@@ -246,21 +274,21 @@ const openNewWorkForm = function (e) {
     document.getElementById("addPictureForm").reset();
     //<select> categories list 
     selectCategoryForm();
-    //display preview
+    // Display preview
     pictureInput = document.querySelector("#photo");
-    pictureInput.onchange = handlePictureChange; // Set the onchange handler
-    //events
+    pictureInput.onchange = picturePreview;
+    // Events
     document.addEventListener("click", closeModal);
     document.querySelector(".modalHeader .fa-arrow-left").addEventListener("click", openModal);
     document.removeEventListener("click", openNewWorkForm);
     document.removeEventListener("click", deleteBtn);
     document.addEventListener("click", newWorkFormSubmit);
   }
-};
+}
 
-//preview image on form
-function loadFile(event) {
-  const file = event.target.files[0];
+// Preview picture in form
+const picturePreview = function() {
+  const [file] = pictureInput.files;
   if (file) {
     document.querySelector("#picturePreviewImg").src = URL.createObjectURL(file);
     document.querySelector("#picturePreview").style.display = "flex";
@@ -268,14 +296,14 @@ function loadFile(event) {
   }
 };
 
-//category options for form
+// Category options for form
 const selectCategoryForm = function () {
-  //reset categories
+  // Reset categories
   document.querySelector("#selectCategory").innerHTML = "";
-  //empty first option
+  // Empty first option
   option = document.createElement("option");
   document.querySelector("#selectCategory").appendChild(option);
-  //options from categories array
+  // Options from categories array
   categories.forEach((categorie) => {
     option = document.createElement("option");
     option.value = categorie.name;
@@ -285,17 +313,7 @@ const selectCategoryForm = function () {
   });
 };
 
-// Handle picture input change to update button color and show preview image
-const handlePictureChange = function(event) {
-  // Change button color
-  const validerButton = document.querySelector("#valider");
-  validerButton.style.backgroundColor = "#1D6154"; 
-
-  // Show preview image
-  loadFile(event);
-};
-
-//submit work form event listener
+// Submit work form event listener
 const newWorkFormSubmit = function (e) {
   if (e.target === document.querySelector("#valider")) {
     e.preventDefault();
@@ -303,29 +321,29 @@ const newWorkFormSubmit = function (e) {
   }
 }
 
-//POST new work
+// POST new work
 function postNewWork() {
   let token = sessionStorage.getItem("token");
   const select = document.getElementById("selectCategory");
-  //get data from form
+  // Get data from form
   const title = document.getElementById("title").value;
   const categoryName = select.options[select.selectedIndex].innerText;
   const categoryId = select.options[select.selectedIndex].id;
   const image = document.getElementById("photo").files[0];
-  //check form validity
+  // Check form validity
   let validity = formValidation(image, title, categoryId);
   if (validity === true) {
-    //create FormData
+    // Create FormData
     const formData = new FormData();
     formData.append("image", image);
     formData.append("title", title);
     formData.append("category", categoryId);
-    // send collected data to API
+    // Send collected data to API
     sendNewData(token, formData, title, categoryName);
   }
 };
 
-//form validation
+// Form validation
 const formValidation = function(image, title, categoryId) {
   if (image == undefined){
     alert("Veuillez ajouter une image");
@@ -343,7 +361,7 @@ const formValidation = function(image, title, categoryId) {
   }
 }
 
-//add new work in worksData array for dynamic display using API response
+// Add new work in worksData array for dynamic display using API response
 const addToWorksData = function(data, categoryName) {
   newWork = {};
   newWork.title = data.title;
@@ -353,7 +371,7 @@ const addToWorksData = function(data, categoryName) {
   worksData.push(newWork);
 }
 
-//API call for new work
+// API call for new work
 function sendNewData(token, formData, title, categoryName) {
   fetch(`${baseInfo}works`, {
     method: "POST",
@@ -364,7 +382,7 @@ function sendNewData(token, formData, title, categoryName) {
   })
     .then((response) => {
       if (response.ok) {
-        alert("Nouveau fichier envoyé avec succés : " + title);
+        alert("Nouveau fichier envoyé avec succès : " + title);
         return response.json();
       } else {
         console.error("Erreur:", response.status);
