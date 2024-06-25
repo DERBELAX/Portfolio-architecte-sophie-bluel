@@ -20,20 +20,20 @@ window.onload = () => {
       listCategories();
       //display all works
       getworks(worksData);
-      //Filter functionnality
+      //Filter functionality
       filter = document.querySelector(".filter");
       categoryFilter(categories, filter);
       adminUserMode(filter);
     });
 }
-//GALLERY
 
+// GALLERY
 function getworks(data) {
   gallery = document.querySelector(".gallery");
   gallery.innerHTML = "";
-//show all works in array
+  //show all works in array
   data.forEach((i) => {
-//create tags
+    //create tags
     const workCard = document.createElement("figure");
     const workImage = document.createElement("img");
     const workTitle = document.createElement("figcaption");
@@ -44,7 +44,7 @@ function getworks(data) {
     workCard.className = "workCard";
     //references to DOM
     gallery.appendChild(workCard);
-    workCard.append(workImage,workTitle)
+    workCard.append(workImage, workTitle);
   });
 }
 
@@ -60,6 +60,7 @@ function listCategories() {
   //parse array to get objects back
   categories = arrayOfStrings.map((s) => JSON.parse(s));
 }
+
 //filter buttons
 function categoryFilter(categories, filter) {
   const button = document.createElement("button");
@@ -70,12 +71,14 @@ function categoryFilter(categories, filter) {
   filtreButtons(categories, filter);
   functionFilter();
 }
+
 //create filter buttons
 function filtreButtons(categories, filter) {
   categories.forEach((categorie) => {
     createButtonFilter(categorie, filter);
   });
 }
+
 function createButtonFilter(categorie, filter) {
   const button = document.createElement("button");
   button.innerText = categorie.name;
@@ -83,16 +86,18 @@ function createButtonFilter(categorie, filter) {
   button.dataset.category = categorie.name;
   filter.appendChild(button);
 }
+
 // Gallery filter
 function functionFilter() {
   const filterButtons = document.querySelectorAll(".filterButton");
-//identify wich filter button has been clicked
+  //identify which filter button has been clicked
   filterButtons.forEach((i) => {
     i.addEventListener("click", function () {
       toggleProjects(i.dataset.category);
     });
   });
 }
+
 //if button "tous" active, display all projects, else display only those with same dataset category
 function toggleProjects(datasetCategory) {
   const figures = document.querySelectorAll(".workCard");
@@ -108,59 +113,57 @@ function toggleProjects(datasetCategory) {
     });
   }
 }
+
 //ADMIN MODE
-
 function adminUserMode() {
-  const token = sessionStorage.getItem("token");
-
-  // Check if the token is present and has the expected length
-  if (token?.length === 143) {
-    // Hide the filter element
-    const filterElement = document.querySelector(".filter");
-    if (filterElement) {
-      filterElement.style.display = "none";
-    }
-
-    // Change the login button text to "logout"
+  //display admin mode if token exists
+  if (sessionStorage.getItem("token")) {
+    //Hide filter
+    document.querySelector(".filter").style.display = "none";
+    //change login to logout
     const logBtn = document.getElementById("logBtn");
-    if (logBtn) {
-      logBtn.innerText = "logout";
-    }
-
-    // Create and display the top menu bar
-    const body = document.querySelector("body");
-    if (body) {
-      const topMenu = document.createElement("div");
-      topMenu.className = "topMenu";
-
-      const editMode = document.createElement("p");
-      editMode.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>Mode édition`;
-      topMenu.appendChild(editMode);
-      body.insertAdjacentElement("afterbegin", topMenu);
-    }
-
-    // Add the edit button next to "Mes Projets"
-    const portfolioHeader = document.querySelector("#portfolio h2");
-    if (portfolioHeader) {
-      const editBtn = document.createElement("p");
-      editBtn.className = "editBtn";
-      editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>Modifier`;
-      portfolioHeader.insertAdjacentElement("afterend", editBtn);
-    }
-
-    // Event listener for modal
-    const portfolioParagraph = document.querySelector("#portfolio p");
-    if (portfolioParagraph) {
-      portfolioParagraph.addEventListener("click", openModal);
-    }
+    logBtn.innerText = "logout";
+    logBtn.addEventListener("click", logout);
+     // Display top menu bar
+     const body = document.querySelector("body");
+     const topMenu = document.createElement("div");
+     const editMode = document.createElement("p");
+    
+     
+     topMenu.className = "topMenu";
+     editMode.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>Mode édition`;
+     logBtn.addEventListener("click", logout);
+     
+     topMenu.append(editMode);
+     body.insertAdjacentElement("afterbegin", topMenu);
+ 
+     // Edit buttons
+     const portfolioHeader = document.querySelector("#portfolio h2");
+     if (portfolioHeader) {
+       const editBtn = document.createElement("p");
+       editBtn.className = "editBtn";
+       editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>Modifier</p>`;
+       portfolioHeader.insertAdjacentElement("beforeend", editBtn);
+     }
+     // Event listener modal
+     const portfolioParagraph = document.querySelector("#portfolio p");
+     if (portfolioParagraph) {
+       portfolioParagraph.addEventListener("click", openModal);
+     } 
   }
 }
+// LOGOUT FUNCTION
 
+function logout() {
+  // Clear the token from sessionStorage
+  sessionStorage.removeItem("token");
+  // Reload the page to update the UI
+  window.location.reload();
+}
 //MODAL
-
-//open modal if token is found and has the expected length
+//open modal if token exists
 const openModal = function () {
-  if (sessionStorage.getItem("token")?.length == 143) {
+  if (sessionStorage.getItem("token")) {
     modal = document.querySelector(".modal");
     modal.style.display = "flex";
     document.querySelector("#addPicture").style.display = "none";
@@ -189,7 +192,6 @@ const closeModal = function (e) {
 }
 
 //DELETE
-
 //display modal gallery function
 function modalGallery(data) {
   const modalContent = document.querySelector(".modalContent");
@@ -224,9 +226,9 @@ const deleteBtn = function (e) {
 
 //API call for DELETE route
 function deleteWork(i) {
-  //authentify user and send API response
+  //authenticate user and send API response
   let token = sessionStorage.getItem("token");
-  fetch(baseApiUrl + "works/" + i, {
+  fetch(baseInfo + "works/" + i, {
     method: "DELETE",
     headers: {
       authorization: `Bearer ${token}`,
@@ -238,21 +240,20 @@ function deleteWork(i) {
       //delete work from worksData array
       worksData = worksData.filter((work) => work.id != i);
       //display updated galleries
-      displayGallery(worksData);
+      getworks(worksData);
       modalGallery(worksData);
       //if response is negative report an error
     } else {
       alert("Erreur : " + response.status);
-      closeModal;
+      closeModal();
     }
   });
 }
 
 //ADD WORK
-
 //display add work form
 const openNewWorkForm = function (e) {
-  if(e.target === document.querySelector("#addPictureBtn")){
+  if (e.target === document.querySelector("#addPictureBtn")) {
     modalStep = 1;
     document.querySelector("#addPicture").style.display = "flex";
     document.querySelector("#editGallery").style.display = "none";
@@ -272,6 +273,7 @@ const openNewWorkForm = function (e) {
     document.addEventListener("click", newWorkFormSubmit);
   }
 }
+
 //preview picture in form
 const picturePreview = function() {
   const [file] = pictureInput.files;
@@ -287,7 +289,7 @@ const selectCategoryForm = function () {
   //reset categories
   document.querySelector("#selectCategory").innerHTML = "";
   //empty first option
-  option = document.createElement("option");
+  let option = document.createElement("option");
   document.querySelector("#selectCategory").appendChild(option);
   //options from categories array
   categories.forEach((categorie) => {
@@ -306,6 +308,7 @@ const newWorkFormSubmit = function (e) {
     postNewWork();
   }
 }
+
 //POST new work
 function postNewWork() {
   let token = sessionStorage.getItem("token");
@@ -327,6 +330,7 @@ function postNewWork() {
     sendNewData(token, formData, title, categoryName);
   }
 };
+
 //form validation
 const formValidation = function(image, title, categoryId) {
   if (image == undefined){
@@ -340,27 +344,27 @@ const formValidation = function(image, title, categoryId) {
   if (categoryId == ""){
     alert("Veuillez choisir une catégorie");
     return false;
-  }else{
-  return true;
+  } else {
+    return true;
   }
 }
 
 //add new work in worksData array for dynamic display using API response
 const addToWorksData = function(data, categoryName) {
-  newWork = {};
+  let newWork = {};
   newWork.title = data.title;
   newWork.id = data.id;
-  newWork.category = {"id" : data.categoryId, "name" : categoryName};
+  newWork.category = {"id": data.categoryId, "name": categoryName};
   newWork.imageUrl = data.imageUrl;
   worksData.push(newWork);
 }
 
 //API call for new work
 function sendNewData(token, formData, title, categoryName) {
-  fetch(`${baseApiUrl}works`, {
+  fetch(`${baseInfo}works`, {
     method: "POST",
     headers: {
-    authorization: `Bearer ${token}`,
+      authorization: `Bearer ${token}`,
     },
     body: formData,
   })
@@ -372,9 +376,9 @@ function sendNewData(token, formData, title, categoryName) {
         console.error("Erreur:", response.status);
       }
     })
-    .then ((data) => {
+    .then((data) => {
       addToWorksData(data, categoryName);
-      displayGallery(worksData);
+      getworks(worksData);
       document.querySelector(".modal").style.display = "none";
       document.removeEventListener("click", closeModal);
       modalStep = null;
