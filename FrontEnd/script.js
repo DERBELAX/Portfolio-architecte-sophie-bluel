@@ -223,7 +223,7 @@ function deleteWork(i) {
       //delete work from worksData array
       worksData = worksData.filter((work) => work.id != i);
       //display updated galleries
-      displayGallery(worksData);
+      getworks(worksData);
       modalGallery(worksData);
       //if response is negative report an error
     } else {
@@ -248,7 +248,7 @@ const openNewWorkForm = function (e) {
     selectCategoryForm();
     //display preview
     pictureInput = document.querySelector("#photo");
-    pictureInput.onchange = picturePreview;
+    pictureInput.onchange = handlePictureChange; // Set the onchange handler
     //events
     document.addEventListener("click", closeModal);
     document.querySelector(".modalHeader .fa-arrow-left").addEventListener("click", openModal);
@@ -256,10 +256,11 @@ const openNewWorkForm = function (e) {
     document.removeEventListener("click", deleteBtn);
     document.addEventListener("click", newWorkFormSubmit);
   }
-}
-//preview picture in form
-const picturePreview = function() {
-  const [file] = pictureInput.files;
+};
+
+//preview image on form
+function loadFile(event) {
+  const file = event.target.files[0];
   if (file) {
     document.querySelector("#picturePreviewImg").src = URL.createObjectURL(file);
     document.querySelector("#picturePreview").style.display = "flex";
@@ -284,6 +285,16 @@ const selectCategoryForm = function () {
   });
 };
 
+// Handle picture input change to update button color and show preview image
+const handlePictureChange = function(event) {
+  // Change button color
+  const validerButton = document.querySelector("#valider");
+  validerButton.style.backgroundColor = "#1D6154"; 
+
+  // Show preview image
+  loadFile(event);
+};
+
 //submit work form event listener
 const newWorkFormSubmit = function (e) {
   if (e.target === document.querySelector("#valider")) {
@@ -291,6 +302,7 @@ const newWorkFormSubmit = function (e) {
     postNewWork();
   }
 }
+
 //POST new work
 function postNewWork() {
   let token = sessionStorage.getItem("token");
@@ -312,6 +324,7 @@ function postNewWork() {
     sendNewData(token, formData, title, categoryName);
   }
 };
+
 //form validation
 const formValidation = function(image, title, categoryId) {
   if (image == undefined){
