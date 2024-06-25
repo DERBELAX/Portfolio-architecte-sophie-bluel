@@ -111,44 +111,29 @@ function toggleProjects(datasetCategory) {
 //ADMIN MODE
 
 function adminUserMode() {
-  const token = sessionStorage.getItem("token");
-
-  // Check if the token is present and has the expected length
-  if (token?.length === 143) {
-    // Hide the filter element
-    const filterElement = document.querySelector(".filter");
-    if (filterElement) {
-      filterElement.style.display = "none";
-    }
-
-    // Change the login button text to "logout"
-    const logBtn = document.getElementById("logBtn");
-    if (logBtn) {
-      logBtn.innerText = "logout";
-    }
-
-    // Create and display the top menu bar
+  //display admin mode if token is found and has the expected length (optional chaining)
+  if (sessionStorage.getItem("token")?.length == 143) {
+    //Hide filter
+    document.querySelector(".filter").style.display = "none";
+    //change login to logout
+    document.getElementById("logBtn").innerText = "logout";
+    //display top menu bar
     const body = document.querySelector("body");
-    if (body) {
-      const topMenu = document.createElement("div");
-      topMenu.className = "topMenu";
-
-      const editMode = document.createElement("p");
-      editMode.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>Mode édition`;
-      topMenu.appendChild(editMode);
-      body.insertAdjacentElement("afterbegin", topMenu);
-    }
-
-    // Add the edit button next to "Mes Projets"
+    const topMenu = document.createElement("div");
+    const editMode = document.createElement("p");
+    topMenu.className = "topMenu";
+    editMode.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>Mode édition`;
+    topMenu.appendChild(editMode);
+    body.insertAdjacentElement("afterbegin", topMenu);
+    //edit buttons
     const portfolioHeader = document.querySelector("#portfolio h2");
     if (portfolioHeader) {
       const editBtn = document.createElement("p");
       editBtn.className = "editBtn";
-      editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>Modifier`;
-      portfolioHeader.insertAdjacentElement("afterend", editBtn);
+      editBtn.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>Modifier</p>`;
+      portfolioHeader.insertAdjacentElement("beforeend", editBtn);
     }
-
-    // Event listener for modal
+    //event listener modal
     const portfolioParagraph = document.querySelector("#portfolio p");
     if (portfolioParagraph) {
       portfolioParagraph.addEventListener("click", openModal);
@@ -226,7 +211,7 @@ const deleteBtn = function (e) {
 function deleteWork(i) {
   //authentify user and send API response
   let token = sessionStorage.getItem("token");
-  fetch(baseApiUrl + "works/" + i, {
+  fetch(baseInfo + "works/" + i, {
     method: "DELETE",
     headers: {
       authorization: `Bearer ${token}`,
@@ -357,7 +342,7 @@ const addToWorksData = function(data, categoryName) {
 
 //API call for new work
 function sendNewData(token, formData, title, categoryName) {
-  fetch(`${baseApiUrl}works`, {
+  fetch(`${baseInfo}works`, {
     method: "POST",
     headers: {
     authorization: `Bearer ${token}`,
