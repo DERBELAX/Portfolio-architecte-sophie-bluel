@@ -44,6 +44,7 @@ table {
 }
 /* End Reset CSS */
 body {
+	background-color: #FFFEF8;
 	max-width: 1140px;
 	margin:auto;
 	font-family: 'Work Sans';
@@ -201,12 +202,12 @@ footer nav ul {
 	gap: 10px;
 }
 .filterButton{
-	background:#1D6154;
 	box-sizing: border-box;
 	width: auto;
+	background-color: #FFFEF8;
 	padding: 10px 20px;
 	border: #1D6154 1px solid;
-	color: white;
+	color: #1D6154;
 	border-radius: 60px;
 	font-family: 'Syne';
 	font-weight: 700;
@@ -214,14 +215,12 @@ footer nav ul {
 	text-align: center;
 	margin: 0;
 }
-.filterButtonAll, #browsePictures {
+#browsePictures {
 	box-sizing: border-box;
 	width: auto;
 	padding: 10px 20px;
-	border: #1D6154 1px solid;
-	background: none;
-	color: #306685;
 	background: #CBD6DC;
+	color: #306685;
 	border-radius: 60px;
 	font-family: 'Syne';
 	font-weight: 700;
@@ -336,6 +335,7 @@ footer nav ul {
 #addPictureBtn {
 	border-radius: 60px;
 	background: #1D6154;
+	border: none;
 	width: 237px;
 	height: 36px;
 	align-self: center;
@@ -415,10 +415,11 @@ input[type="file"] {
 	height: 20px;
 }
 
-.submit-btn-2 {
+#valider {
 	background-color: #A7A7A7;
 	width: 37%;
 	border-radius: 60px;
+	border: #A7A7A7 1px solid;
 	width: 237px;
 	height: 36px;
 	align-self: center;
