@@ -418,7 +418,6 @@ input[type="file"] {
 #valider{
 	padding: 10px 49px;
     border-radius: 60px;
-    background:#A7A7A7;
 	border: none;
     width: 237px;
     height: 36px;
@@ -427,7 +426,17 @@ input[type="file"] {
     cursor: pointer;
     align-self: center;
 }
-
+input[type="submit"] {
+    padding: 10px 49px;
+    border-radius: 60px;
+    background: #1D6154;
+    width: 237px;
+    height: 36px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+}
 #horizontalLine {
     width: 70%;   
 	border: 0;  
@@ -435,3 +444,5 @@ input[type="file"] {
 	background: #B3B3B3;
 	margin-bottom: 20px;
 	}
+
+	

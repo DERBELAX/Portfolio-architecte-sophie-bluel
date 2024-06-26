@@ -259,6 +259,7 @@ const openNewWorkForm = function (e) {
     document.querySelector("#editGallery").style.display = "none";
     document.querySelector("#labelPhoto").style.display = "flex";
     document.querySelector("#picturePreview").style.display = "none";
+    document.querySelector("#valider").style.background="#A7A7A7";
     document.getElementById("addPictureForm").reset();
     //<select> categories list 
     selectCategoryForm();
