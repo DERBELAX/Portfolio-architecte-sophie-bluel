@@ -201,7 +201,7 @@ footer nav ul {
 	margin-bottom: 50px;
 	gap: 10px;
 }
-.filterButton{
+.filterButton, .filterButtonAll, #browsePictures {
 	box-sizing: border-box;
 	width: auto;
 	background-color: #FFFEF8;
@@ -415,18 +415,16 @@ input[type="file"] {
 	height: 20px;
 }
 
-#valider {
-	background-color: #A7A7A7;
-	width: 37%;
-	border-radius: 60px;
-	border: #A7A7A7 1px solid;
-	width: 237px;
-	height: 36px;
-	align-self: center;
-	color: #FFFFFF;
-	text-align: center;
-	font-size: 14px;
-	font-family: Syne;
+input[type="submit"] {
+    padding: 10px 49px;
+    border-radius: 60px;
+    background: #1D6154;
+    width: 237px;
+    height: 36px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    align-self: center;
 }
 #horizontalLine {
     width: 70%;   
