@@ -218,6 +218,7 @@ footer nav ul {
 #browsePictures {
 	box-sizing: border-box;
 	width: auto;
+	border: none;
 	padding: 10px 20px;
 	background: #CBD6DC;
 	color: #306685;
@@ -414,11 +415,11 @@ input[type="file"] {
     display: none;
 	height: 20px;
 }
-
-input[type="submit"] {
-    padding: 10px 49px;
+#valider{
+	padding: 10px 49px;
     border-radius: 60px;
-    background: #1D6154;
+    background:#A7A7A7;
+	border: none;
     width: 237px;
     height: 36px;
     color: white;
@@ -426,6 +427,7 @@ input[type="submit"] {
     cursor: pointer;
     align-self: center;
 }
+
 #horizontalLine {
     width: 70%;   
 	border: 0;  

@@ -281,6 +281,7 @@ const picturePreview = function() {
     document.querySelector("#picturePreviewImg").src = URL.createObjectURL(file);
     document.querySelector("#picturePreview").style.display = "flex";
     document.querySelector("#labelPhoto").style.display = "none";
+    document.querySelector("#valider").style.background="#1D6154";
   }
 };
 
