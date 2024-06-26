@@ -1,5 +1,4 @@
 //Data 
-const baseInfo = "http://localhost:5678/api/";
 let worksData;
 let categories;
 
