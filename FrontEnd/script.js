@@ -160,6 +160,7 @@ function logout() {
 //MODAL
 //open modal if token exists
 const openModal = function () {
+  clearErrors();
   if (sessionStorage.getItem("token")) {
     modal = document.querySelector(".modal");
     modal.style.display = "flex";
@@ -233,6 +234,7 @@ function deleteWork(i) {
   }).then((response) => {
     //if response is positive, update the works gallery accordingly
     if (response!== 200) {
+      clearErrors();
       displayMessag("Projet supprimé avec succés");
       //delete work from worksData array
       worksData = worksData.filter((work) => work.id != i);
@@ -396,6 +398,7 @@ function sendNewData(token, formData, title, categoryName) {
     body: formData,
   })
     .then((response) => {
+      clearErrors();
       if (response.ok) {
         displayMessag("Nouveau fichier envoyé avec succés:"+ ""+title);
         return response.json();
