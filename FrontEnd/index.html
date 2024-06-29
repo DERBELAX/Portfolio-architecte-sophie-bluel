@@ -12,39 +12,41 @@
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-	<aside class="modal">
-		<div class="modalWrapper" id="editGallery">
-			<div class="modalHeader"><i class="fa-solid fa-xmark"></i></div>
-			<h3 class="modalTitle">Galerie photo</h3>
-			<div class="modalContent"></div>
-			<hr id="horizontalLine">
-			<button id="addPictureBtn">Ajouter une photo</button>
-		</div>
-		<div class="modalWrapper" id="addPicture">
-			<div class="modalHeader"><i class="fa-solid fa-arrow-left"></i><i class="fa-solid fa-xmark"></i></div>
-			<h3 class="modalTitle">Ajout photo</h3>
-			<div class="modalContent">
-				<form id="addPictureForm" name="addPictureForm">
-					<div id="labelPhoto">
-						<img src="./assets/icons/picture.png" id="picture" alt="choisir une image">
-						<label for="photo" id="browsePictures">+ Ajouter photo</label>
-						<p>jpg, png : 4mo max</p>
-					</div>
-					<div id="picturePreview">
-						<img src="#" alt="votre image" id="picturePreviewImg">
-					</div>
-					<input type="file" class="photo" name="photo" id="photo" accept="image/png, image/jpeg" required>
-					<label for="title">Titre</label>
-					<input type="text" id="title" name="title" required>
-					<label for="selectCategory">Catégorie</label>
-					<select id="selectCategory" name="selectCategory">
-					</select>
-				</form>
+		<!-- Modale -->
+		<aside class="modal">
+			<div class="modalWrapper" id="editGallery">
+				<div class="modalHeader"><i class="fa-solid fa-xmark"></i></div>
+				<h3 class="modalTitle">Galerie photo</h3>
+				<div class="modalContent"></div>
+				<hr id="horizontalLine">
+				<button id="addPictureBtn">Ajouter une photo</button>
 			</div>
-			<hr id="horizontalLine">
-			<input type="submit" id="valider" value="Valider">
-		</div>
+			<div class="modalWrapper" id="addPicture">
+				<div class="modalHeader"><i class="fa-solid fa-arrow-left"></i><i class="fa-solid fa-xmark"></i></div>
+				<h3 class="modalTitle">Ajout photo</h3>
+				<div class="modalContent">
+					<form id="addPictureForm" name="addPictureForm">
+						<div id="labelPhoto">
+							<img src="./assets/icons/picture.png" id="picture" alt="choisir une image">
+							<label for="photo" id="browsePictures">+ Ajouter photo</label>
+							<p>jpg, png : 4mo max</p>
+						</div>
+						<div id="picturePreview">
+							<img src="#" alt="votre image" id="picturePreviewImg">
+						</div>
+						<input type="file" class="photo" name="photo" id="photo" accept="image/png, image/jpeg" required>
+						<label for="title">Titre</label>
+						<input type="text" id="title" name="title" required>
+						<label for="selectCategory">Catégorie</label>
+						<select id="selectCategory" name="selectCategory">
+						</select>
+					</form>
+				</div>
+				<hr id="horizontalLine">
+				<input type="submit" id="valider" value="Valider">
+			</div>
 	</aside>
+	
 <header>
     <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>

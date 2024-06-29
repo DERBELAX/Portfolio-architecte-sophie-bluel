@@ -113,7 +113,6 @@ function toggleProjects(datasetCategory) {
   }
 }
 
-//ADMIN MODE
 function adminUserMode() {
   //display admin mode if token exists
   if (sessionStorage.getItem("token")) {
@@ -127,7 +126,6 @@ function adminUserMode() {
      const body = document.querySelector("body");
      const topMenu = document.createElement("div");
      const editMode = document.createElement("p");
-    
      
      topMenu.className = "topMenu";
      editMode.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>Mode édition`;
@@ -234,8 +232,8 @@ function deleteWork(i) {
     },
   }).then((response) => {
     //if response is positive, update the works gallery accordingly
-    if (response.ok) {
-      alert("Projet supprimé avec succés")
+    if (response!== 200) {
+      displayMessag("Projet supprimé avec succés");
       //delete work from worksData array
       worksData = worksData.filter((work) => work.id != i);
       //display updated galleries
@@ -251,6 +249,7 @@ function deleteWork(i) {
 
 //ADD WORK
 //display add work form
+
 const openNewWorkForm = function (e) {
   if (e.target === document.querySelector("#addPictureBtn")) {
     modalStep = 1;
@@ -329,21 +328,48 @@ function postNewWork() {
     formData.append("category", categoryId);
     // send collected data to API
     sendNewData(token, formData, title, categoryName);
+
   }
-};
+}
+
+function displayMessag(msg){
+  clearErrors()
+  const message = document.createElement("p");
+  message.textContent = msg;
+  message.style.textAlign = `center`;
+  message.style.color = 'green';
+  message.classList.add("p");
+  document.querySelector("#editGallery").appendChild(message);
+}
+
+function displayerror(msg){
+  clearErrors();
+  const error = document.createElement("p");
+  error.textContent = msg;
+  error.style.textAlign = `center`;
+  error.style.color='red';
+  error.classList.add("p");
+  document.getElementById("addPictureForm").appendChild(error);
+}
+
+function clearErrors() {
+  const errorElements = document.querySelectorAll('.p');
+  errorElements.forEach(msg => msg.remove());
+}
 
 //form validation
 const formValidation = function(image, title, categoryId) {
+  clearErrors();
   if (image == undefined){
-    alert("Veuillez ajouter une image");
+    displayerror("Veuillez ajouter une image");
     return false;
   }
-  if (title.trim().length == 0){    
-    alert("Veuillez ajouter un titre");
+  if (title.trim().length == 0){   
+    displayerror("Veuillez ajouter un titre");
     return false;
   }
   if (categoryId == ""){
-    alert("Veuillez choisir une catégorie");
+    displayerror("Veuillez choisir une catégorie");
     return false;
   } else {
     return true;
@@ -371,7 +397,7 @@ function sendNewData(token, formData, title, categoryName) {
   })
     .then((response) => {
       if (response.ok) {
-        alert("Nouveau fichier envoyé avec succés : " + title);
+        displayMessag("Nouveau fichier envoyé avec succés:"+ ""+title);
         return response.json();
       } else {
         console.error("Erreur:", response.status);
@@ -380,9 +406,15 @@ function sendNewData(token, formData, title, categoryName) {
     .then((data) => {
       addToWorksData(data, categoryName);
       getworks(worksData);
-      document.querySelector(".modal").style.display = "none";
-      document.removeEventListener("click", closeModal);
-      modalStep = null;
+      modalGallery(worksData);
+      document.querySelector("#addPicture").style.display = "none";
+      document.querySelector("#editGallery").style.display = "flex";
+      document.querySelector("#addPictureForm").reset();
+      document.removeEventListener("click", openNewWorkForm);
+      document.removeEventListener("click", deleteBtn);
+      document.addEventListener("click", deleteBtn);
+      document.addEventListener("click", openNewWorkForm);
+      modalStep = 0;
     })
     .catch((error) => console.error("Erreur:", error));
 }
