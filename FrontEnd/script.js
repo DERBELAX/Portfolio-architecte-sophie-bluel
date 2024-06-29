@@ -341,7 +341,9 @@ function displayMessag(msg){
   message.style.textAlign = `center`;
   message.style.color = 'green';
   message.classList.add("p");
-  document.querySelector("#editGallery").appendChild(message);
+  const editGallery=document.querySelector("#editGallery")
+  const horizontalLine = document.querySelector("#editGallery  #horizontalLine");
+  editGallery.insertBefore(message, horizontalLine);
 }
 
 function displayerror(msg){
