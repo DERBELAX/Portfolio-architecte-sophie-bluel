@@ -9,22 +9,35 @@ let modal;
 let modalStep = null;
 let pictureInput;
 
-// FETCH works data from API and display it
 window.onload = () => {
   fetch(`${baseInfo}works`)
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      return response.json();
+    })
     .then((data) => {
       worksData = data;
-      //get list of categories
-      listCategories();
-      //display all works
+      
+      // Display all works using the fetched data
       getworks(worksData);
-      //Filter functionality
-      filter = document.querySelector(".filter");
+      
+      // Get and display the list of categories
+      listCategories();
+      
+      // Filter functionality
+      const filter = document.querySelector(".filter");
       categoryFilter(categories, filter);
+      
+      // Initialize admin user mode if applicable
       adminUserMode(filter);
+    })
+    .catch((error) => {
+      console.error('Error fetching works:', error);
     });
 }
+
 
 // GALLERY
 function getworks(data) {
@@ -60,24 +73,27 @@ function listCategories() {
   categories = arrayOfStrings.map((s) => JSON.parse(s));
 }
 
-//filter buttons
+// Initialize filtre system
 function categoryFilter(categories, filter) {
+  // create"tous" button
   const button = document.createElement("button");
   button.innerText = "Tous";
   button.className = "filterButton";
   button.dataset.category = "Tous";
   filter.appendChild(button);
+  //create buttons for each category
   filtreButtons(categories, filter);
+  // Attach event listeners to filtre buttons
   functionFilter();
 }
 
-//create filter buttons
+//Create buttons for each category
 function filtreButtons(categories, filter) {
   categories.forEach((categorie) => {
     createButtonFilter(categorie, filter);
   });
 }
-
+//create filter button
 function createButtonFilter(categorie, filter) {
   const button = document.createElement("button");
   button.innerText = categorie.name;
@@ -222,31 +238,44 @@ const deleteBtn = function (e) {
   }
 };
 
-//API call for DELETE route
-function deleteWork(i) {
-  //authenticate user and send API response
+async function deleteWork(i) {
+  // Authenticate user and send API request
   let token = sessionStorage.getItem("token");
-  fetch(baseInfo + "works/" + i, {
-    method: "DELETE",
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  }).then((response) => {
-    //if response is positive, update the works gallery accordingly
-    if (response!== 200) {
+  const timeout = (ms) => new Promise((_, reject) => setTimeout(() => reject(new Error('Request timed out')), ms));
+
+  try {
+    // Race the fetch request against a timeout of 5000 ms (5 seconds)
+    let response = await Promise.race([
+      fetch(baseInfo + "works/" + i, {
+        method: "DELETE",
+        headers: {
+          accept: '*/*',
+          authorization: `Bearer ${token}`,
+        },
+      }),
+      timeout(5000) // 5 seconds timeout
+    ]);
+
+    // Check if the response status is 204 (No Content), indicating successful deletion
+    if (response.status >= 200) {
       clearErrors();
-      displayMessag("Projet supprimé avec succés");
-      //delete work from worksData array
+      displayMessag("Projet supprimé avec succès");
+      // Delete work from worksData array
       worksData = worksData.filter((work) => work.id != i);
-      //display updated galleries
+      // Display updated galleries
       getworks(worksData);
       modalGallery(worksData);
-      //if response is negative report an error
     } else {
+      // If response is not successful, report an error
       alert("Erreur : " + response.status);
       closeModal();
     }
-  });
+  } catch (error) {
+    // Handle network or other errors
+    console.error('Error:', error);
+    alert("Erreur : " + error.message);
+    closeModal();
+  }
 }
 
 //ADD WORK
